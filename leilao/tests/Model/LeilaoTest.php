@@ -7,8 +7,23 @@ use Ridley\Leilao\Model\Lance;
 use Ridley\Leilao\Model\Leilao;
 use Ridley\Leilao\Model\Usuario;
 
+use function PHPUnit\Framework\assertCount;
+
 class LeilaoTest extends TestCase
 {
+
+    public function testLeilaoNaoDeveReceberLancesRepetidos()
+    {
+        $leilao = new leilao('Variante');
+        $ana = new Usuario('Ana');
+        $maria = new Usuario('Maria');
+
+        $leilao->receberLance(new Lance($ana, 1000));
+        $leilao->recebeLance((new Lance($maria, 1500)));
+
+        static::assertCount(1, $leilao->getLances());
+
+    }
     public function testLeilaoDeveReceberLances()
     {
         $joao = new Usuario('João');
