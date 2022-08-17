@@ -16,12 +16,13 @@ class LeilaoTest extends TestCase
     {
         $leilao = new leilao('Variante');
         $ana = new Usuario('Ana');
-        $maria = new Usuario('Maria');
 
-        $leilao->receberLance(new Lance($ana, 1000));
-        $leilao->recebeLance((new Lance($maria, 1500)));
+        $leilao->recebeLance(new Lance($ana, 1000));
+        $leilao->recebeLance(new Lance($ana, 1500));
 
         static::assertCount(1, $leilao->getLances());
+        static::assertEquals(1000, $leilao->getLances()[0]->getValor());
+
 
     }
     public function testLeilaoDeveReceberLances()
